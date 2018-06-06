@@ -1,0 +1,19 @@
+{
+  "name": "dropit",
+  "version": "1.0.0",
+  "description": "DropIt is a File Uploader, You can Upload any File and share the link...",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ThalKod/DropIt.git"
+  },
+  "author": "Thal Marcelin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ThalKod/DropIt/issues"
+  },
+  "homepage": "https://github.com/ThalKod/DropIt#readme"
+}
