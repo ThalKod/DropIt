@@ -1,0 +1,80 @@
+.solid-color {
+	background: #192a80
+}
+
+.standard-button {
+	background: #005093
+}
+
+.standard-button:hover {
+	background-color: #00396b;
+	color: #fff
+}
+
+.standard-button2 {
+	background: #005093
+}
+
+.standard-button2:hover {
+	background: #005093
+}
+
+.btn-primary,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.open .dropdown-toggle.btn-primary {
+	background: #005093;
+	border-color: inherit
+}
+
+.colored-line,
+.colored-line-left {
+	background: #005093
+}
+
+.main-color {
+	color: #005093
+}
+
+.color-bg {
+	background: #005093;
+	color: #fff
+}
+
+.features .feature .icon-container .icon {
+	color: #005093
+}
+
+.feature-list li i {
+	color: #005093
+}
+
+.services .single-service .service-icon,
+.services .single-service h3 {
+	color: #005093
+}
+
+.screenshots .owl-theme .owl-controls .owl-page span {
+	background: #005093
+}
+
+footer .contact-button {
+	border: 2px solid #005093;
+	color: #005093
+}
+
+footer .contact-button:hover {
+	background: #005093
+}
+
+footer .contact-box .expanded-contact-form .input-box:active,
+footer .contact-box .expanded-contact-form .textarea-box:active,
+footer .contact-box .expanded-contact-form .input-box:focus,
+footer .contact-box .expanded-contact-form .textarea-box:focus {
+	border: 1px solid #005093
+}
+
+footer .social-icons li a:hover {
+	color: #005093
+}
