@@ -15,5 +15,9 @@
   "bugs": {
     "url": "https://github.com/ThalKod/DropIt/issues"
   },
-  "homepage": "https://github.com/ThalKod/DropIt#readme"
+  "homepage": "https://github.com/ThalKod/DropIt#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "nodemon": "^1.17.5"
+  }
 }
