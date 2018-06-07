@@ -38,18 +38,29 @@ app.get("/", (req, res)=>{
 
 app.post("/upload", upload.single("file"), (req, res)=>{
     if(req.file){
+
         console.log(req.file);
+        
+        const identifier = Math.random().toString(36).slice(2);
 
         const data = {
-            url: req.file.path,
+            url: "/" + identifier,
             name: req.file.originalname,
             encoding: req.file.encoding,
             mimetype: req.file.mimetype,
             size: req.file.size
-        }
+        };
 
+        const file = {
+            name: data.url,
+            size: data.size,
+            path_on_disk: data.url,
+            identifier: identifier,
+        };
 
-        return res.status(200).send(data);
+        File.create(file).then((rFile)=>{
+            return res.status(200).send(data);
+        });
     }
 });
 
