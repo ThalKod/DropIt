@@ -1,7 +1,16 @@
 const express = require("express");
 const app = express();
 const multer  = require('multer')
-const upload = multer({ dest: 'upload/' })
+const upload = multer({
+    storage: multer.diskStorage({
+        destination: 'files/',
+        filename: function(req, file, cb) {
+            // this overwrites the default multer renaming callback
+            // and simply saves the file as it is
+            cb(null, file.originalname)
+        }
+    })
+});
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -10,6 +19,11 @@ app.use(express.static(__dirname + "/public"));
 app.get("/", (req, res)=>{
     res.render("index");
 });
+
+// app.get("/download", (req, res)=>{
+//     const filePath = "upload/8f88293580bbd3b154868be33c0fab4c";
+//     res.download(filePath);
+// })
 
 
 app.post("/upload", upload.single("file"), (req, res)=>{
