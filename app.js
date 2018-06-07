@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
-const multer  = require('multer')
+const mongoose = require("mongoose");
+const multer  = require('multer');
+const File = require("./models/file");
 const upload = multer({
     storage: multer.diskStorage({
         destination: 'files/',
@@ -14,6 +16,14 @@ const upload = multer({
 
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
+
+// MongoDb config
+mongoose.connect("mongodb://localhost/dropit", (err)=>{
+    if(err){
+        throw err;
+    }
+});
+mongoose.Promise = global.Promise;
 
 
 app.get("/", (req, res)=>{
@@ -37,6 +47,8 @@ app.post("/upload", upload.single("file"), (req, res)=>{
             mimetype: req.file.mimetype,
             size: req.file.size
         }
+
+
         return res.status(200).send(data);
     }
 });
