@@ -40,7 +40,7 @@ app.post("/upload", upload.single("file"), (req, res)=>{
     if(req.file){
 
         console.log(req.file);
-        
+
         const identifier = Math.random().toString(36).slice(2);
 
         const data = {
@@ -54,7 +54,7 @@ app.post("/upload", upload.single("file"), (req, res)=>{
         const file = {
             name: data.url,
             size: data.size,
-            path_on_disk: data.url,
+            path_on_disk: "files/" + data.url,
             identifier: identifier,
         };
 
