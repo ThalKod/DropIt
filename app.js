@@ -5,15 +5,22 @@ const multer  = require('multer');
 const File = require("./models/file");
 const Count = require("./models/count");
 const config = require("./config");
+const crypto = require('crypto');
+const mime = require("mime-types");
 const seed = require("./seedb");
 const upload = multer({
     storage: multer.diskStorage({
         destination: 'files/',
-        filename: function(req, file, cb) {
-            // this overwrites the default multer renaming callback
-            // and simply saves the file as it is
-            cb(null, file.originalname)
-        }
+        filename: function (req, file, cb) {
+            crypto.pseudoRandomBytes(4, function (err, raw) {
+                const mine_type = mime.lookup(file.originalname);
+                const nameSplit = file.originalname.split("."); 
+                nameSplit.pop(); 
+                const name = nameSplit.join(".");
+                console.log(name);
+                cb(null, raw.toString('hex') + name + '.' + mime.extension(mine_type));
+            });
+          }
     })
 });
 
@@ -63,7 +70,8 @@ app.get("/:id", (req, res)=>{
             rCount[0].save();
         });
         
-        const file = "files/" + rFile.name;
+        // const file = "files/" + rFile.name;
+        const file = rFile.path_on_disk;
         res.download(file);
     }).catch(()=>{
         res.redirect("/");
@@ -72,6 +80,7 @@ app.get("/:id", (req, res)=>{
 
 app.post("/upload", upload.single("file"), (req, res)=>{
     if(req.file){
+        console.log(req.file);
         const identifier = Math.random().toString(36).slice(2);
         const data = {
             url: identifier,
@@ -84,7 +93,7 @@ app.post("/upload", upload.single("file"), (req, res)=>{
         const file = {
             name: data.name,
             size: data.size,
-            path_on_disk: "files/" + data.name,
+            path_on_disk: req.file.path,
             identifier: identifier,
         };
 
