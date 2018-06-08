@@ -5,6 +5,8 @@
   DropIt is a File Uploader built with nodejs
 </p>
 
+![alt text](https://github.com/ThalKod/DropIt/blob/master/public/img/Screen%20Shot%202018-06-08%20at%2010.36.39%20AM.png)
+
 
 # :floppy_disk: Installation
 
