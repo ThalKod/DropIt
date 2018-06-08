@@ -30,10 +30,16 @@ app.get("/", (req, res)=>{
     res.render("index");
 });
 
-// app.get("/download", (req, res)=>{
-//     const filePath = "upload/8f88293580bbd3b154868be33c0fab4c";
-//     res.download(filePath);
-// })
+
+app.get("/:id", (req, res)=>{
+
+    File.findOne({identifier: req.params.id}).then((rFile)=>{
+        res.send(rFile);
+    });
+
+    // const filePath = "upload/8f88293580bbd3b154868be33c0fab4c";
+    // res.download(filePath);
+})
 
 
 app.post("/upload", upload.single("file"), (req, res)=>{

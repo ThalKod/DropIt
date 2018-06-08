@@ -12,9 +12,12 @@ const filesSchema = new mongoose.Schema({
     },
     identifier: {
         type: String
+    },
+    uploaded_date: {
+        type: Date,
+        default: Date.now()
     }
 });
 
 module.exports = mongoose.model("File", filesSchema);
 
-// console.log(Math.random().toString(36).slice(2));
