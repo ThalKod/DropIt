@@ -4,6 +4,7 @@
   "description": "DropIt is a File Uploader, You can Upload any File and share the link...",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
