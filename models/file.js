@@ -16,6 +16,10 @@ const filesSchema = new mongoose.Schema({
     uploaded_date: {
         type: Date,
         default: Date.now()
+    },
+    downloaded: {
+        type: Number,
+        default: 0
     }
 });
 

@@ -18,10 +18,6 @@ const init = function(){
             $(".dropzone-notification").slideDown();
         });
 
-        // uploader.on("maxfilesreached", function(file) {
-        //     this.removeFile(file);
-        // });
-
         uploader.on("queuecomplete", function() {
             if(!uploaded){
                 $('.dz-error').hide();
@@ -73,6 +69,14 @@ function chunksComplete(responseText) {
     if (data.user_id === 0) {
         upload_promo();
     }
+
+    $.ajax({
+        method: "GET",
+        url: "/count"
+    })
+    .done(function(data){
+        $("#file-count").html("-"+data.data+"-");
+    });
 }
 $(document).ready(function() {
     var clipboard = new Clipboard('.copy');
@@ -84,11 +88,6 @@ $(document).ready(function() {
         console.error('Action:', e.action);
         console.error('Trigger:', e.trigger);
         showTooltip(e.trigger, fallbackMessage(e.action));
-    });
-    $.ajaxSetup({
-        data: {
-            csrf_test_name: $("#csrf_hash").val()
-        }
     });
 });
 jQuery(window).load(function() {
