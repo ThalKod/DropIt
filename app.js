@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const multer  = require('multer');
 const File = require("./models/file");
 const Count = require("./models/count");
+const config = require("./config");
 const seed = require("./seedb");
 const upload = multer({
     storage: multer.diskStorage({
@@ -20,7 +21,7 @@ app.set("view engine", "ejs");
 app.use(express.static(__dirname + "/public"));
 
 // MongoDb config
-mongoose.connect("mongodb://localhost/dropit", (err)=>{
+mongoose.connect(config.dbURL, (err)=>{
     if(err){
         throw err;
     }
