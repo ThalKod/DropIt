@@ -7,6 +7,7 @@
 
 ![alt text](https://github.com/ThalKod/DropIt/blob/master/public/img/Screen%20Shot%202018-06-08%20at%2010.36.39%20AM.png)
 
+[Demo](https://dropit0.herokuapp.com/)
 
 # :floppy_disk: Installation
 
