@@ -1,2 +1,6 @@
 node_modules/
 /temp.js
+
+# Mac OS Temporary Files
+.DS_Store
+._*
