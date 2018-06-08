@@ -7,6 +7,7 @@ const Count = require("./models/count");
 const config = require("./config");
 const crypto = require('crypto');
 const mime = require("mime-types");
+const util = require('util');
 const seed = require("./seedb");
 const upload = multer({
     storage: multer.diskStorage({
@@ -23,19 +24,17 @@ const upload = multer({
     })
 });
 
-app.set("view engine", "ejs");
-app.use(express.static(__dirname + "/public"));
-
-// MongoDb config
-mongoose.connect(config.dbURL, (err) => {
-    if (err) {
-        throw err;
-    }
-});
+// configure app and mongoose
 mongoose.Promise = global.Promise;
+app.set("view engine", "ejs");
+app.set("port", process.env.PORT || 7000);
+
+// middlewares
+app.use(express.static(__dirname + "/public"));
 
 // seed();
 
+// routes
 app.get("/", (req, res) => {
     File.find({}).then((rFiles) => {
         Count.find({}).then((rCount) => {
@@ -100,8 +99,18 @@ app.post("/upload", upload.single("file"), (req, res) => {
     }
 });
 
+// convert to promise
+const mongooseConnect = util.promisify(mongoose.connect);
+const appListen = util.promisify(app.listen);
 
-app.listen(process.env.PORT || 7000, () => {
-    console.log("listening...");
+// boot only if db is available
+mongooseConnect(config.dbURL)
+.then(db => appListen(app.get("port")))
+.then(() => console.log("listening on port:", app.get("port")))
+.catch(err => {
+
+    // report and exit on database error
+    console.log("failed to connect to db with error", err.message);
+    process.exit(1);
 });
 
