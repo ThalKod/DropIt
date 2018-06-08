@@ -17,7 +17,6 @@ const upload = multer({
                 const nameSplit = file.originalname.split("."); 
                 nameSplit.pop(); 
                 const name = nameSplit.join(".");
-                console.log(name);
                 cb(null, raw.toString('hex') + name + '.' + mime.extension(mine_type));
             });
           }
@@ -70,7 +69,6 @@ app.get("/:id", (req, res)=>{
             rCount[0].save();
         });
         
-        // const file = "files/" + rFile.name;
         const file = rFile.path_on_disk;
         res.download(file);
     }).catch(()=>{
@@ -80,7 +78,6 @@ app.get("/:id", (req, res)=>{
 
 app.post("/upload", upload.single("file"), (req, res)=>{
     if(req.file){
-        console.log(req.file);
         const identifier = Math.random().toString(36).slice(2);
         const data = {
             url: identifier,
