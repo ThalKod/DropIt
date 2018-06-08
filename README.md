@@ -6,4 +6,24 @@
 </p>
 
 
-(Building...).
+# :floppy_disk: Installation
+
+```bash
+# clone the repo
+$ git clone https://github.com/ThalKod/DropIt.git
+
+# install the requirements
+$ npm install
+```
+
+## Usage
+```bash
+npm start
+```
+
+### Working with your own DB ? modify config.js :
+```javascript
+module.exports = {
+    dbURL: process.env.DATABASEURL || "mongodb://localhost/dropit"
+}
+```
