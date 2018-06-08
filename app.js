@@ -44,7 +44,7 @@ app.post("/upload", upload.single("file"), (req, res)=>{
         const identifier = Math.random().toString(36).slice(2);
 
         const data = {
-            url: "/" + identifier,
+            url: identifier,
             name: req.file.originalname,
             encoding: req.file.encoding,
             mimetype: req.file.mimetype,
