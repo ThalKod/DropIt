@@ -12,6 +12,7 @@ services:
         - DB_HOST=dropit_database
         - NODE_ENV
     env_file: .env
+    restart: always
     ports:
       - 7000:7000
     depends_on:
@@ -21,6 +22,7 @@ services:
   dropit_database:
     image: mongo:3.4-jessie
     env_file: ./.env
+    restart: always
     ports:
       - 27017:27017
     volumes:
