@@ -1,0 +1,10 @@
+.git
+.gitignore
+LICENSE
+VERSION
+*.md
+docker-compose.yml
+dockerfile_dropitapp
+test/*
+node_modules
+files/*

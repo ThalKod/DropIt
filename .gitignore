@@ -4,3 +4,7 @@ node_modules/
 # Mac OS Temporary Files
 .DS_Store
 ._*
+
+# ignore contents of files(uploads) folder but keep the folder itself
+files/*
+!files/.gitkeep
