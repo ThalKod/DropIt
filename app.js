@@ -7,17 +7,21 @@ const Count = require("./models/count");
 const config = require("./config");
 const crypto = require('crypto');
 const mime = require("mime-types");
-const util = require('util');
+const path = require('path');
 const seed = require("./seedb");
 const upload = multer({
     storage: multer.diskStorage({
-        destination: 'files/',
+        destination: path.join(__dirname, 'files/'),
         filename: function (req, file, cb) {
             crypto.pseudoRandomBytes(4, function (err, raw) {
                 const mime_type = mime.lookup(file.originalname);
-                const nameSplit = file.originalname.split(".");
-                nameSplit.pop();
-                const name = nameSplit.join(".");
+
+                // throw away any extension if provided
+                const nameSplit = file.originalname.split(".").slice(0,-1);
+                //nameSplit.pop();
+
+                // replace all white spaces with - for safe file name on different filesystem 
+                const name = nameSplit.join(".").replace(/\s/g,'-');
                 cb(null, raw.toString('hex') + name + '.' + mime.extension(mime_type));
             });
         }
@@ -37,8 +41,20 @@ app.use(express.static(__dirname + "/public"));
 // routes
 app.get("/", (req, res) => {
     File.find({}).then((rFiles) => {
+
+        let templateData = {  uploadTime: 0, dTime: 0 };
+
+        if (rFiles != null && rFiles.length) {
+            templateData.uploadTime = rFiles.length;
+        }
+
         Count.find({}).then((rCount) => {
-            res.render("index", { uploadTime: rFiles.length, dTime: rCount[0].count });
+
+            if (rCount != null && rCount.length) {
+                templateData.dTime = rCount[0].count;
+            }
+
+            res.render("index", templateData);
         });
     }).catch(() => {
         res.redirect("/");
@@ -50,8 +66,10 @@ app.get("/count", (req, res) => {
     const result = { error: "", data: "" };
 
     File.find({}).then((rFiles) => {
-        result.data = rFiles.length;
+
+        result.data = rFiles != null && rFiles.length ? rFiles.length : 0;
         res.send(result);
+
     }).catch((err) => {
         result.error = err;
         res.send(result);
@@ -60,16 +78,26 @@ app.get("/count", (req, res) => {
 
 app.get("/:id", (req, res) => {
     File.findOne({ identifier: req.params.id }).then((rFile) => {
+
+        if (rFile == null ) {
+            return res.sendStatus(404);
+        }
+        
         rFile.downloaded++;
         rFile.save();
 
         Count.find({}).then((rCount) => {
-            rCount[0].count++;
-            rCount[0].save();
+
+            if (rCount != null && rCount.length) {
+                rCount[0].count++;
+                rCount[0].save();
+            }
+            
         });
 
         const file = rFile.path_on_disk;
         res.download(file);
+
     }).catch(() => {
         res.redirect("/");
     });
@@ -100,7 +128,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
 });
 
 // boot if db is available
-mongoose.connect(config.dbURL, { server: { reconnectTries: 5 } })
+mongoose.connect(config.dbURL, { reconnectTries: 5 })
     .then(db => {
         // boot
         app.listen(app.get("port"), () => {
@@ -111,3 +139,13 @@ mongoose.connect(config.dbURL, { server: { reconnectTries: 5 } })
         console.log("DB Connection Error: ", dbErr.message);
         process.exit(1);
     });
+
+process.once('unhandledRejection',err => {
+    console.log('UNHANDLED_REJECTION: ', err.stack.toString());
+    process.exit(1);
+});
+
+process.once('uncaughtException',err => {
+    console.log('UNHANDLED_EXCEPTION: ', err.stack.toString());
+    process.exit(1);
+});
