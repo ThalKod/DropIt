@@ -8,3 +8,9 @@ node_modules/
 # ignore contents of files(uploads) folder but keep the folder itself
 files/*
 !files/.gitkeep
+
+# env files
+.env
+
+# docker compose files(to avoid data/config leaks)
+docker-compose.yml
