@@ -31,7 +31,7 @@ const upload = multer({
 // configure app and mongoose
 mongoose.Promise = global.Promise;
 app.set("view engine", "ejs");
-app.set("port", process.env.PORT || 7000);
+// app.set("port", process.env.PORT || 7000);
 
 // middlewares
 app.use(express.static(__dirname + "/public"));
@@ -133,8 +133,8 @@ app.post("/upload", upload.single("file"), (req, res) => {
 mongoose.connect(config.dbURL, { reconnectTries: 5 })
     .then(db => {
         // boot
-        app.listen(app.get("port"), () => {
-            console.log("Listening on port: ", app.get("port"));
+        app.listen(config.port, () => {
+            console.log("Listening on port: ", config.port);
         });
     })
     .catch(dbErr => {
