@@ -8,7 +8,7 @@ const config = require("./config");
 const crypto = require('crypto');
 const mime = require("mime-types");
 const path = require('path');
-const seed = require("./seedb");
+const initialCount = require("./seedb");
 const upload = multer({
     storage: multer.diskStorage({
         destination: path.join(__dirname, 'files/'),
@@ -36,7 +36,6 @@ app.set("port", process.env.PORT || 7000);
 // middlewares
 app.use(express.static(__dirname + "/public"));
 
-// seed();
 
 // routes
 app.get("/", (req, res) => {
@@ -52,6 +51,9 @@ app.get("/", (req, res) => {
 
             if (rCount != null && rCount.length) {
                 templateData.dTime = rCount[0].count;
+            }else{
+                // Initialize db count
+                initialCount();
             }
 
             res.render("index", templateData);
