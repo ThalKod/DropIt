@@ -99,18 +99,15 @@ app.post("/upload", upload.single("file"), (req, res) => {
     }
 });
 
-// convert to promise
-const mongooseConnect = util.promisify(mongoose.connect);
-const appListen = util.promisify(app.listen);
-
-// boot only if db is available
-mongooseConnect(config.dbURL)
-.then(db => appListen(app.get("port")))
-.then(() => console.log("listening on port:", app.get("port")))
-.catch(err => {
-
-    // report and exit on database error
-    console.log("failed to connect to db with error", err.message);
-    process.exit(1);
-});
-
+// boot if db is available
+mongoose.connect(config.dbURL, { server: { reconnectTries: 5 } })
+    .then(db => {
+        // boot
+        app.listen(app.get("port"), () => {
+            console.log("Listening on port: ", app.get("port"));
+        });
+    })
+    .catch(dbErr => {
+        console.log("DB Connection Error: ", dbErr.message);
+        process.exit(1);
+    });
