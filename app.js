@@ -125,7 +125,6 @@ app.post("/upload", upload.single("file"), (req, res) => {
         };
 
         File.create(file).then((rFile) => {
-            console.log("hey");
             return res.status(200).send(data);
         });
     }

@@ -52,7 +52,6 @@ const init = function(){
 }
 
 function chunksComplete(responseText) {
-    console.log("hey");
     uploaded = true;
     data = JSON.parse(responseText);
     document.querySelector('#copylink').value = location.href + data.url;
