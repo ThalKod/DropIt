@@ -106,6 +106,7 @@ app.get("/:id", (req, res) => {
 });
 
 app.post("/upload", upload.single("file"), (req, res) => {
+    
     if (req.file) {
         const identifier = Math.random().toString(36).slice(2);
         const data = {
@@ -124,6 +125,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
         };
 
         File.create(file).then((rFile) => {
+            console.log("hey");
             return res.status(200).send(data);
         });
     }

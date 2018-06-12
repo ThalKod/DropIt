@@ -117,7 +117,6 @@ var Dropzone = function(_Emitter) {
             this.prototype.Emitter = Emitter;
             this.prototype.events = ["drop", "dragstart", "dragend", "dragenter", "dragover", "dragleave", "addedfile", "addedfiles", "removedfile", "thumbnail", "error", "errormultiple", "processing", "processingmultiple", "uploadprogress", "totaluploadprogress", "sending", "sendingmultiple", "success", "successmultiple", "canceled", "canceledmultiple", "complete", "completemultiple", "reset", "maxfilesexceeded", "maxfilesreached", "queuecomplete"];
             this.prototype.defaultOptions = {
-                url: "https://up.uploadfiles.io/upload",
                 method: "post",
                 withCredentials: true,
                 timeout: 0,
@@ -125,7 +124,7 @@ var Dropzone = function(_Emitter) {
                 uploadMultiple: false,
                 chunking: true,
                 forceChunking: true,
-                chunkSize: 52430000,
+                chunkSize: 5243000000,
                 parallelChunkUploads: false,
                 retryChunks: true,
                 retryChunksLimit: 3,
@@ -197,6 +196,7 @@ var Dropzone = function(_Emitter) {
                     if (file.status == "failure") {
                         return false;
                     } else {
+
                         chunksComplete(file.xhr.responseText);
                         done();
                     }
