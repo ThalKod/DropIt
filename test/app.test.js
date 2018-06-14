@@ -1,10 +1,8 @@
 const request = require("supertest");
 const app = require("../app");
 const File = require("../models/file");
-const Count = require("../models/count");
 
-let count = 0;
-let fileCount;
+let fileCount = 0;
 
 beforeAll(() => {
     File.find({}).then((rFiles) => {
@@ -65,4 +63,3 @@ describe("POST /upload ", ()=>{
     });
     
 });
-
