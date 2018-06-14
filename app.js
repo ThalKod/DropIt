@@ -127,6 +127,8 @@ app.post("/upload", upload.single("file"), (req, res) => {
         File.create(file).then((rFile) => {
             return res.status(200).send(data);
         });
+    }else{
+        res.status(404).send();
     }
 });
 

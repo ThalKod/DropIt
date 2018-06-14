@@ -36,3 +36,33 @@ describe("GET /count ", ()=>{
             .end(done);
     });
 });
+
+describe("POST /upload ", ()=>{
+    it("Should upload and save the file in db", (done)=>{
+        request(app)
+            .post("/upload")
+            .attach("file",__dirname + "/files/test.txt")
+            .expect(200)
+            .end((err, res)=>{
+                if(err){
+                    return finish(err);
+                }
+
+                File.find({}).then((rFiles)=>{
+                    expect(rFiles.length).toBe(fileCount + 1);
+                    done();
+                }).catch((err)=>{
+                    done(err);
+                })
+            });
+    });
+
+    it("Should return 404 if no file uploaded", (done)=>{
+        request(app)
+            .post("/upload")
+            .expect(404)
+            .end(done);
+    });
+    
+});
+
