@@ -1,24 +1,19 @@
 const request = require("supertest");
 const app = require("../app");
-const File = require("./models/file");
+const File = require("../models/file");
 const Count = require("../models/count");
 
-let count;
-let file;
+let count = 0;
+let fileCount;
 
 beforeAll(() => {
-    Count.create({ count: 0 }).then((rCount)=>{
-        count = rCount.count;
+    File.find({}).then((rFiles) => {
+        if(rFiles != null && rFiles.length){
+            return fileCount = rFiles.length;
+        }
+    }).catch((err) => {
+        console.log(err);
     });
-
-    File.create({
-        name: "testname",
-        size: 13234,
-        path_on_disk: "/test/path",
-        identifier: "2525Eda",
-    }).then((rFile)=>{
-        file = rFile;
-    })
 });
 
 describe("GET / ", ()=>{
@@ -33,14 +28,11 @@ describe("GET / ", ()=>{
 describe("GET /count ", ()=>{
     it("Should return the number of uploaded file", (done)=>{
         request(app)
-            .get("/")
+            .get("/count")
             .expect(200)
-            .end((err, res)=>{
-                if(err){
-                    return finish(err);
-                 }
-                 console.log(res);
-                 done();
-            });
+            .expect((res)=>{
+                 expect(res.body.data).toBe(fileCount);
+            })
+            .end(done);
     });
 });
