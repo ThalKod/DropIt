@@ -152,3 +152,5 @@ process.once('uncaughtException',err => {
     console.log('UNHANDLED_EXCEPTION: ', err.stack.toString());
     process.exit(1);
 });
+
+module.exports = app;
