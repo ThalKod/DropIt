@@ -23,7 +23,7 @@
   "dependencies": {
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "jest": "^23.4.1",
+    "jest": "^23.4.2",
     "mime": "^2.3.1",
     "mime-types": "^2.1.19",
     "mongoose": "^5.2.5",
