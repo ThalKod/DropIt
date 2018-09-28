@@ -15,7 +15,7 @@
 # clone the repo
 $ git clone https://github.com/ThalKod/DropIt.git
 
-# install the requirements
+# install the node modules...
 $ npm install
 ```
 
