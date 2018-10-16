@@ -22,7 +22,7 @@
   "homepage": "https://github.com/ThalKod/DropIt#readme",
   "dependencies": {
     "ejs": "^2.6.1",
-    "express": "^4.16.3",
+    "express": "^4.16.4",
     "jest": "^23.6.0",
     "mime": "^2.3.1",
     "mime-types": "^2.1.20",
