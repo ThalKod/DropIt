@@ -28,7 +28,7 @@
     "mime-types": "^2.1.21",
     "mongoose": "^5.3.4",
     "multer": "^1.4.1",
-    "nodemon": "^1.18.4",
+    "nodemon": "^1.18.5",
     "supertest": "^3.1.0"
   }
 }
