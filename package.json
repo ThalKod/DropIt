@@ -26,7 +26,7 @@
     "jest": "^24.3.1",
     "mime": "^2.4.0",
     "mime-types": "^2.1.22",
-    "mongoose": "^5.4.17",
+    "mongoose": "^5.4.19",
     "multer": "^1.4.1",
     "nodemon": "^1.18.10",
     "supertest": "^3.4.2"
